@@ -49,7 +49,7 @@
         headings = content.querySelectorAll('h1, h2, h3');
         navBar = document.getElementsByTagName("nav")[0];
         const nav = document.getElementById("heading_tree");
-        document.title = headings[0].textContent || document.title;
+        document.title = (headings[0].textContent || document.title).trim() + " | Sri Pranav Kunda";
         headings.forEach((h, i) => { 
             const node = h.cloneNode(true);
             const a = node.getElementsByTagName("a")[0];

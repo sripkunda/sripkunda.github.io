@@ -73,6 +73,10 @@ blockquote {
   opacity: 0.7;
 }
 
+code {
+  background-color: rgb(241, 237, 237);
+}
+
 a {
   opacity: 1;
   text-underline-offset: 3px;

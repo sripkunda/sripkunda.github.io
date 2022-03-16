@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blockchain-from-scratch</title>
+    <link rel="shortcut icon" href="/assets/favicon.jpg" />
+    <link rel="stylesheet" href="/css/md.css" />
+    <link rel="stylesheet" href="/css/blog.css" />
+    
+    <!-- Math and Code -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js" integrity="sha512-fzff82+8pzHnwA1mQ0dzz9/E0B+ZRizq08yZfya66INZBz86qKTCt9MLU0NCNIgaMJCgeyhujhasnFUsYMsi0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+
+    <!-- Startup Code -->
+    <script>
+    let headings = []; 
+    let navHeadings = [];
+    let content;
+    let navBar; 
+    
+    function scrollBehavior(e) {
+        navHeadings.forEach(e => e.node.className = "");
+        let closest;
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            closest = navHeadings.length - 1;
+        } else {
+            const distances = Array.from(headings).map(e => Math.abs(e.getBoundingClientRect().top)); 
+            closest = distances.indexOf(Math.min(...distances)); 
+        }
+        const parent = navHeadings[closest].parent; 
+        const node = navHeadings[closest].node; 
+        navHeadings.filter(e => e.parent == parent || e.parent == node).forEach(e => e.node.className = "open");
+        navHeadings[closest].node.className = "selected open";
+    }
+
+    function load(e) {
+        document.getElementById(window.location.hash?.substr(1))?.scrollIntoView();
+        content = document.getElementById("blog_content");
+        headings = content.querySelectorAll('h1, h2, h3');
+        navBar = document.getElementsByTagName("nav")[0];
+        const nav = document.getElementById("heading_tree");
+        document.title = (headings[0].textContent || document.title).trim() + " | Sri Pranav Kunda";
+        headings.forEach((h, i) => { 
+            const node = h.cloneNode(true);
+            const a = node.getElementsByTagName("a")[0];
+            if (a) {
+                const content = a.textContent; 
+                a.remove(); 
+                node.innerText = content;
+            }
+            nav.append(node);
+            const getParent = (i) => {
+                if (!navHeadings[i - 1]) return; 
+                while (parseInt(navHeadings[i - 1]?.node.tagName[1]) >= parseInt(h.tagName[1])) {
+                    i--; 
+                }
+                return navHeadings[i - 1]?.node;
+            }
+            navHeadings.push({ node: node, parent: getParent(i) });
+            node.onclick = () => {
+                headings[i].scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+
+    const toggleMobileMenu = () => {
+        navBar.style.display = navBar.style.display == "block" ? "" : "block";
+    }
+
+    document.addEventListener("DOMContentLoaded", load);
+    document.addEventListener("scroll", scrollBehavior);
+</script>
+</head>
+<body>
+    <div id="mobile_menu_button" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+    <nav>
+    <h1 class="selected" onclick="window.location = '../'">Sri Pranav Kunda</h1>
+    <span id="heading_tree">
+    </span>
+    <h1 onclick="window.scrollTo({ left: 0, top: 0, behavior: 'auto' })">Jump To Top</h1>
+    <h1 onclick="window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: 'auto' })">Jump To Bottom</h1>
+    </nav>
+    <div id="blog_content">
+        <h1>Blockchain From Scratch</h1><newline><p>I've compiled some notes that I took while implementing a &quot;toy&quot; virtual machine for decentralized applications with support for a native cryptocurrency. The blockchain will also have a programming language for developing decentralized applications. It follows a very similar architecture to the Ethereum Blockchain, and explains much of the required technical details of Ethereum.</p><newline><p>A <strong>large</strong> amount of this information was directly interpreted from the <a href='https://ethereum.org/en/whitepaper/'>Ethereum Whitepaper</a>. None of the methods discussed or implemented are my own original ideas.</p><newline><h4>Introducing Blockchain Technology</h4><newline><p>In many computer applications, it is useful for the application's state to be nearly entirely independent of any single entity.</p><newline><p>What this means is that the application is not reliant on computer(s) owned by a single organization and is instead reliant on a network of <em>anyone's</em> computer(s). Computers in the network agree on the application's state in order for it to be valid, and anybody can join this network (with a catch, as you will see soon).</p><newline><p>This is the concept behind blockchain. A blockchain is a growing list of objects called blocks. Blocks are stored in order, where the <eq><span class='katex'><span class='katex-mathml'><math xmlns='http://www.w3.org/1998/Math/MathML'><semantics><mrow><mi>i</mi></mrow><annotation encoding='application/x-tex'>i</annotation></semantics></math></span><span class='katex-html' aria-hidden='true'><span class='base'><span class='strut' style='height:0.6595em;'></span><span class='mord mathnormal'>i</span></span></span></span></eq>th block references the <eq><span class='katex'><span class='katex-mathml'><math xmlns='http://www.w3.org/1998/Math/MathML'><semantics><mrow><mo stretchy='false'>(</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo stretchy='false'>)</mo></mrow><annotation encoding='application/x-tex'>(i - 1)</annotation></semantics></math></span><span class='katex-html' aria-hidden='true'><span class='base'><span class='strut' style='height:1em;vertical-align:-0.25em;'></span><span class='mopen'>(</span><span class='mord mathnormal'>i</span><span class='mspace' style='margin-right:0.2222em;'></span><span class='mbin'>−</span><span class='mspace' style='margin-right:0.2222em;'></span></span><span class='base'><span class='strut' style='height:1em;vertical-align:-0.25em;'></span><span class='mord'>1</span><span class='mclose'>)</span></span></span></span></eq>th block by it's hash.</p><newline><p>Assume that <eq><span class='katex'><span class='katex-mathml'><math xmlns='http://www.w3.org/1998/Math/MathML'><semantics><mrow><mi>n</mi></mrow><annotation encoding='application/x-tex'>n</annotation></semantics></math></span><span class='katex-html' aria-hidden='true'><span class='base'><span class='strut' style='height:0.4306em;'></span><span class='mord mathnormal'>n</span></span></span></span></eq> is the total number of blocks in the blockchain <eq><span class='katex'><span class='katex-mathml'><math xmlns='http://www.w3.org/1998/Math/MathML'><semantics><mrow><mo stretchy='false'>(</mo><mi>n</mi><mo>&gt;</mo><mn>1</mn><mo stretchy='false'>)</mo></mrow><annotation encoding='application/x-tex'>(n &gt; 1)</annotation></semantics></math></span><span class='katex-html' aria-hidden='true'><span class='base'><span class='strut' style='height:1em;vertical-align:-0.25em;'></span><span class='mopen'>(</span><span class='mord mathnormal'>n</span><span class='mspace' style='margin-right:0.2778em;'></span><span class='mrel'>&gt;</span><span class='mspace' style='margin-right:0.2778em;'></span></span><span class='base'><span class='strut' style='height:1em;vertical-align:-0.25em;'></span><span class='mord'>1</span><span class='mclose'>)</span></span></span></span></eq>. The first block is called the genesis block. If the data in the <eq><span class='katex'><span class='katex-mathml'><math xmlns='http://www.w3.org/1998/Math/MathML'><semantics><mrow><mi>n</mi><mo>−</mo><mi>i</mi></mrow><annotation encoding='application/x-tex'>n - i</annotation></semantics></math></span><span class='katex-html' aria-hidden='true'><span class='base'><span class='strut' style='height:0.6667em;vertical-align:-0.0833em;'></span><span class='mord mathnormal'>n</span><span class='mspace' style='margin-right:0.2222em;'></span><span class='mbin'>−</span><span class='mspace' style='margin-right:0.2222em;'></span></span><span class='base'><span class='strut' style='height:0.6595em;'></span><span class='mord mathnormal'>i</span></span></span></span></eq>th block changes, where <eq><span class='katex'><span class='katex-mathml'><math xmlns='http://www.w3.org/1998/Math/MathML'><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>i</mi><mo>&lt;</mo><mi>n</mi></mrow><annotation encoding='application/x-tex'>0 &lt; i &lt; n</annotation></semantics></math></span><span class='katex-html' aria-hidden='true'><span class='base'><span class='strut' style='height:0.6835em;vertical-align:-0.0391em;'></span><span class='mord'>0</span><span class='mspace' style='margin-right:0.2778em;'></span><span class='mrel'>&lt;</span><span class='mspace' style='margin-right:0.2778em;'></span></span><span class='base'><span class='strut' style='height:0.6986em;vertical-align:-0.0391em;'></span><span class='mord mathnormal'>i</span><span class='mspace' style='margin-right:0.2778em;'></span><span class='mrel'>&lt;</span><span class='mspace' style='margin-right:0.2778em;'></span></span><span class='base'><span class='strut' style='height:0.4306em;'></span><span class='mord mathnormal'>n</span></span></span></span></eq>, its hash also changes, effectively &quot;breaking&quot; the chain. Blocks <eq><span class='katex'><span class='katex-mathml'><math xmlns='http://www.w3.org/1998/Math/MathML'><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn><mo separator='true'>,</mo><mo>…</mo><mo separator='true'>,</mo><mi>n</mi><mo>−</mo><mi>i</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding='application/x-tex'>n - 1, \dots, n - i + 1</annotation></semantics></math></span><span class='katex-html' aria-hidden='true'><span class='base'><span class='strut' style='height:0.6667em;vertical-align:-0.0833em;'></span><span class='mord mathnormal'>n</span><span class='mspace' style='margin-right:0.2222em;'></span><span class='mbin'>−</span><span class='mspace' style='margin-right:0.2222em;'></span></span><span class='base'><span class='strut' style='height:0.8389em;vertical-align:-0.1944em;'></span><span class='mord'>1</span><span class='mpunct'>,</span><span class='mspace' style='margin-right:0.1667em;'></span><span class='minner'>…</span><span class='mspace' style='margin-right:0.1667em;'></span><span class='mpunct'>,</span><span class='mspace' style='margin-right:0.1667em;'></span><span class='mord mathnormal'>n</span><span class='mspace' style='margin-right:0.2222em;'></span><span class='mbin'>−</span><span class='mspace' style='margin-right:0.2222em;'></span></span><span class='base'><span class='strut' style='height:0.7429em;vertical-align:-0.0833em;'></span><span class='mord mathnormal'>i</span><span class='mspace' style='margin-right:0.2222em;'></span><span class='mbin'>+</span><span class='mspace' style='margin-right:0.2222em;'></span></span><span class='base'><span class='strut' style='height:0.6444em;'></span><span class='mord'>1</span></span></span></span></eq> are now invalid as they no longer reference a valid block.</p><newline><p>If you feel unfamiliar with this concept, it might be useful to look into how <a href='https://en.wikipedia.org/wiki/Hash'>cryptographic hashes</a> work.</p><newline><h2 id='the-state-machine' tabindex='-1'><a class='header-anchor' href='#the-state-machine'><span>The State Machine</span></a></h2><newline><p>It is common in Ethereum's whitepaper as well as in other places to refer to the blockchain as an &quot;infinite state machine&quot; (technically, it is a <a href='https://en.wikipedia.org/wiki/Transition_system'>transition system</a>). There exists a state transition function <code>APPLY(S, TX) -&gt; S'</code>, where <code>S'</code> represents the state of the state machine after the execution of the function.</p><newline><ul><newline><li><code>S</code> represents the current state</li><newline><li><code>TX</code> represents the transactions that took place between <code>S</code> and the expected <code>S'</code></li><newline></ul><newline><p>We will discuss and implement this state transition function later. Before that, let's figure out what our state machine does.</p><newline><h3 id='ethereum-accounts-vs.-bitcoin-utxo' tabindex='-1'><a class='header-anchor' href='#ethereum-accounts-vs.-bitcoin-utxo'><span>Ethereum Accounts vs. Bitcoin UTXO</span></a></h3><newline><p>A large difference between the architectures of Ethereum and Bitcoin is the way digital currency is attributed to users. This major difference makes for some significant differences in the workings of each infrastructure's virtual machine.</p><newline><h4>UTXO and &quot;Change&quot;</h4><newline><p>Although Bitcoin's protocols are outside of the scope of this writing, I feel that it is important to include to gain a better understanding of the state machine.</p><newline><p>UTXO stands for Unspent Transaction Output. As the name suggests, UTXO is the result of a transaction.</p><newline><p>Generally, Bitcoin users will use a wallet to manage funds. For every transaction, they will make a bitcoin &quot;address,&quot; a human-readable string which is referenced to claim ownership of the UTXO.</p><newline><p>The state in Bitcoin's state machine contains all existing bitcoins and their owning addresses. The input and output UTXO refer to the UTXO at <code>S</code> and <code>S'</code> respectively.</p><newline><p>This system is similar to how exchanges by cash work in real life. Assume there are two people, Person A and Person B. Person A has received 3 BTC, 2 BTC, 2 BTC, and 8 BTC, all from separate previous transactions. Person A wants to give 9 BTC to Person B. Then, instead of sending 9 BTC, the least possible BTC and UTXO that can be sent to minimize the change must be sent <strong>without splitting the UTXO</strong>.</p><newline><p>In this case, the best way is to send 8 BTC and 2 BTC (the input UTXO), a total of 10 BTC. The output UTXO are:</p><newline><ul><newline><li>9 BTC belonging to Person A</li><newline><li>1 BTC of change, belonging to Person B</li><newline></ul><newline><p>Note that the sum of all input UTXO must be greater than or equal to the sum of all output UTXO (<eq><span class='katex'><span class='katex-mathml'><math xmlns='http://www.w3.org/1998/Math/MathML'><semantics><mrow><mn>10</mn><mo>≥</mo><mo stretchy='false'>(</mo><mn>8</mn><mo>+</mo><mn>2</mn><mo stretchy='false'>)</mo></mrow><annotation encoding='application/x-tex'>10 \ge (8 + 2)</annotation></semantics></math></span><span class='katex-html' aria-hidden='true'><span class='base'><span class='strut' style='height:0.7804em;vertical-align:-0.136em;'></span><span class='mord'>10</span><span class='mspace' style='margin-right:0.2778em;'></span><span class='mrel'>≥</span><span class='mspace' style='margin-right:0.2778em;'></span></span><span class='base'><span class='strut' style='height:1em;vertical-align:-0.25em;'></span><span class='mopen'>(</span><span class='mord'>8</span><span class='mspace' style='margin-right:0.2222em;'></span><span class='mbin'>+</span><span class='mspace' style='margin-right:0.2222em;'></span></span><span class='base'><span class='strut' style='height:1em;vertical-align:-0.25em;'></span><span class='mord'>2</span><span class='mclose'>)</span></span></span></span></eq>)</p><newline><p>UTXO must be sent as a whole and cannot be &quot;split&quot; or &quot;merged&quot; until ownership is verified (to prevent double payments). This is because the system by which UTXO is identified is its reference to the owner's Bitcoin address. If the BTC is not sent as a whole UTXO, the ownership cannot be verified.</p><newline><h4>Ethereum's Account System</h4><newline><p>Ethereum's accounts are a powerful alternative to UTXO in validating ownership of digital currencies and generalizing the idea of &quot;value&quot; and &quot;data&quot; to decentralized applications as well as users.</p><newline><p>More concretely, Ethereum's state consists of &quot;accounts&quot; made up of the following data:</p><newline><ul><newline><li>A nonce (a &quot;counter used to make sure each transaction can only be processed once,&quot; as stated exactly in the Ethereum whitepaper)</li><newline><li>The balance of the account in ETH (the native cryptocurrency of Ethereum)</li><newline><li>The contract code, for smart contracts and decentralized applications (not-required field)</li><newline><li>Persistent storage</li><newline></ul><newline><p>Users can control their account using public key cryptography. The user receives a private (secret) key as well as a public key. Whenever a transaction is made, the user digitally signs the transaction, and the public key can be used later to validate if the signature made by the owner of the private key associated with that public key.</p><newline><p>Ethereum refers to these types of accounts as &quot;externally owned accounts.&quot;</p><newline><p>The other type of account is a &quot;contract account,&quot; which is essentially a piece of software that runs on the Ethereum Virtual Machine (dicussed later). I like to think of contracts as &quot;APIs&quot; that are invoked when a message is sent to them (or when you make an &quot;API call,&quot; to continue the analogy). Contracts can also access the persistent storage of the account.</p><newline><h3 id='the-ethereum-virtual-machine-(evm)' tabindex='-1'><a class='header-anchor' href='#the-ethereum-virtual-machine-(evm)'><span>The Ethereum Virtual Machine (EVM)</span></a></h3><newline><h2 id='cryptographic-algorithms' tabindex='-1'><a class='header-anchor' href='#cryptographic-algorithms'><span>Cryptographic Algorithms</span></a></h2><newline><h3 id='public-key-cryptography' tabindex='-1'><a class='header-anchor' href='#public-key-cryptography'><span>Public Key Cryptography</span></a></h3><newline><h3 id='sha-256-hashing-algorithm' tabindex='-1'><a class='header-anchor' href='#sha-256-hashing-algorithm'><span>SHA-256 Hashing Algorithm</span></a></h3><newline><h3 id='ripemd160-hashing-algorithm' tabindex='-1'><a class='header-anchor' href='#ripemd160-hashing-algorithm'><span>RIPEMD160 Hashing Algorithm</span></a></h3><newline>
+    </div>
+</body>
+</html>
