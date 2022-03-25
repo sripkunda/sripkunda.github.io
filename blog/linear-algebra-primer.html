@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>linear-algebra-primer</title>
+    <link rel="shortcut icon" href="/assets/favicon.jpg" />
+    <link rel="stylesheet" href="/css/md.css" />
+    <link rel="stylesheet" href="/css/blog.css" />
+    
+    <!-- Math and Code -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js" integrity="sha512-fzff82+8pzHnwA1mQ0dzz9/E0B+ZRizq08yZfya66INZBz86qKTCt9MLU0NCNIgaMJCgeyhujhasnFUsYMsi0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+
+    <!-- Startup Code -->
+    <script>
+    let headings = []; 
+    let navHeadings = [];
+    let content;
+    let navBar; 
+    
+    function scrollBehavior(e) {
+        navHeadings.forEach(e => e.node.className = "");
+        let closest;
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            closest = navHeadings.length - 1;
+        } else {
+            const distances = Array.from(headings).map(e => Math.abs(e.getBoundingClientRect().top)); 
+            closest = distances.indexOf(Math.min(...distances)); 
+        }
+        const parent = navHeadings[closest].parent; 
+        const node = navHeadings[closest].node; 
+        navHeadings.filter(e => e.parent == parent || e.parent == node).forEach(e => e.node.className = "open");
+        navHeadings[closest].node.className = "selected open";
+    }
+
+    function load(e) {
+        document.getElementById(window.location.hash?.substr(1))?.scrollIntoView();
+        content = document.getElementById("blog_content");
+        headings = content.querySelectorAll('h1, h2, h3');
+        navBar = document.getElementsByTagName("nav")[0];
+        const nav = document.getElementById("heading_tree");
+        document.title = (headings[0].textContent || document.title).trim() + " | Sri Pranav Kunda";
+        headings.forEach((h, i) => { 
+            const node = h.cloneNode(true);
+            const a = node.getElementsByTagName("a")[0];
+            if (a) {
+                const content = a.textContent; 
+                a.remove(); 
+                node.innerText = content;
+            }
+            nav.append(node);
+            const getParent = (i) => {
+                if (!navHeadings[i - 1]) return; 
+                while (parseInt(navHeadings[i - 1]?.node.tagName[1]) >= parseInt(h.tagName[1])) {
+                    i--; 
+                }
+                return navHeadings[i - 1]?.node;
+            }
+            navHeadings.push({ node: node, parent: getParent(i) });
+            node.onclick = () => {
+                headings[i].scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+
+    const toggleMobileMenu = () => {
+        navBar.style.display = navBar.style.display == "block" ? "" : "block";
+    }
+
+    document.addEventListener("DOMContentLoaded", load);
+    document.addEventListener("scroll", scrollBehavior);
+</script>
+</head>
+<body>
+    <div id="mobile_menu_button" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+    <nav>
+    <h1 class="selected" onclick="window.location = '../'">Sri Pranav Kunda</h1>
+    <span id="heading_tree">
+    </span>
+    <h1 onclick="window.scrollTo({ left: 0, top: 0, behavior: 'auto' })">Jump To Top</h1>
+    <h1 onclick="window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: 'auto' })">Jump To Bottom</h1>
+    </nav>
+    <div id="blog_content">
+        <h1>Linear Algebra Primer</h1><newline><p>This article is a fast paced introduction to Linear Algebra.</p><newline><p>Linear algebra is the study of linear relationships, linear maps, and their many representations. There are countless applications in various subjects in computer science, engineering, physics, and (naturally) mathematics. Linear algebra has been cleverly applied to other seemingly unrelated fields as well. To see the power of this subject, it may be worth looking into Google's <a href='https://en.wikipedia.org/wiki/PageRank'>PageRank Algorithm</a>.</p><newline><p>The treatment leaves out details for the sake of speed and understanding, as it is meant to be a quick introduction to the topic. The prerequisites are single variable calculus, although enough mathematical maturity should get you through most of the content. For a review of integration, see <a href='https://sripkunda.me/blog/understanding-and-computing-integrals'>my article on integrals</a>.</p><newline><blockquote><newline><p>Many things I want to write about require linear algebra, so I wrote this primarily as a reference to make my other writings more accessible. The content is based on the books <a href='https://linear.axler.net/'>Linear Algebra Done Right</a> by S. Axler and <a href='http://www.faculty.luther.edu/~macdonal/laga/'>Linear and Geometric Algebra</a> by A. Macdonald, although alternative approaches are taken for some topics.</p><newline></blockquote><newline><h2 id='vectors' tabindex='-1'><a class='header-anchor' href='#vectors'><span>Vectors</span></a></h2><newline><h3 id='vector-spaces' tabindex='-1'><a class='header-anchor' href='#vector-spaces'><span>Vector Spaces</span></a></h3><newline><h3 id='subspaces' tabindex='-1'><a class='header-anchor' href='#subspaces'><span>Subspaces</span></a></h3><newline><h3 id='span-and-linear-combinations' tabindex='-1'><a class='header-anchor' href='#span-and-linear-combinations'><span>Span and Linear Combinations</span></a></h3><newline><h3 id='linear-independence-and-bases' tabindex='-1'><a class='header-anchor' href='#linear-independence-and-bases'><span>Linear Independence and Bases</span></a></h3><newline><h3 id='dimension' tabindex='-1'><a class='header-anchor' href='#dimension'><span>Dimension</span></a></h3><newline><h2 id='inner-product-spaces' tabindex='-1'><a class='header-anchor' href='#inner-product-spaces'><span>Inner Product Spaces</span></a></h2><newline><h3 id='the-inner-product' tabindex='-1'><a class='header-anchor' href='#the-inner-product'><span>The Inner Product</span></a></h3><newline><h3 id='the-norm' tabindex='-1'><a class='header-anchor' href='#the-norm'><span>The Norm</span></a></h3><newline><h2 id='orthogonality' tabindex='-1'><a class='header-anchor' href='#orthogonality'><span>Orthogonality</span></a></h2><newline><h3 id='orthogonal-and-orthonormal-bases' tabindex='-1'><a class='header-anchor' href='#orthogonal-and-orthonormal-bases'><span>Orthogonal and Orthonormal Bases</span></a></h3><newline><h3 id='the-orthogonal-complement' tabindex='-1'><a class='header-anchor' href='#the-orthogonal-complement'><span>The Orthogonal Complement</span></a></h3><newline><h3 id='the-gram-schmidt-process' tabindex='-1'><a class='header-anchor' href='#the-gram-schmidt-process'><span>The Gram-Schmidt Process</span></a></h3><newline><h2 id='matrices' tabindex='-1'><a class='header-anchor' href='#matrices'><span>Matrices</span></a></h2><newline><h3 id='the-vector-space' tabindex='-1'><a class='header-anchor' href='#the-vector-space'><span>The Vector Space</span></a></h3><newline>
+    </div>
+</body>
+</html>
