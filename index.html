@@ -30,11 +30,11 @@
     </script>
     <title>Sri Pranav Kunda</title>
 </head>
-<body>
+<body onload="getAge()">
     <header>
         <h1>Sri Pranav Kunda</h1>
         <section>
-            <blockquote>I am a 16 year old student from the US. I like mathematics and computer science (especially machine learning and differentiable programming)</blockquote>
+            <blockquote>Hi! I'm Sri, a <span class='age'></span> year old student from the US. I like mathematics and computer science, specifically pure math and theory of computation.</blockquote>
             <div>
                         <a href="https:&#x2F;&#x2F;github.com&#x2F;sripkunda" target="">GitHub</a> |
                         <a href="https:&#x2F;&#x2F;linkedin.com&#x2F;in&#x2F;sripkunda" target="">LinkedIn</a> |
@@ -113,5 +113,11 @@
                     </div>
             </div>
         </section>
+
+    <script>
+        function getAge() {
+            Array.from(document.getElementsByClassName('age')).forEach(e => e.innerHTML = new Date(new Date() - new Date("October 28, 2005")).getUTCFullYear() - 1970);
+        }
+    </script>
 </body>
 </html>
