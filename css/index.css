@@ -3,16 +3,16 @@ hr {
 }
 
 a {
-    color: #37352f;
+    color: #000000;
     text-decoration: underline 0.1px; 
 }
 
 a:visited {
-    color: #37352f;
+    color: #000000;
 }
 
 a:hover {
-    opacity: 0.9;
+    color: white;
 }
 
 .container {
