@@ -18,8 +18,8 @@ p {
 }
 
 ::selection {
-    background-color: #000000;
-    color: white;
+  background-color: #000000;
+  color: white;
 }
 
 html {
@@ -131,6 +131,11 @@ a:hover {
   margin-top: 10px;
   padding: 5px;
   margin-bottom: 5px;
+}
+
+.dropdown *::selection{
+  background-color: white;
+  color: black;
 }
 
 dropdown {
