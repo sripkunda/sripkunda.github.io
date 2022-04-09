@@ -71,10 +71,40 @@
                 headings[i].scrollIntoView({ behavior: 'smooth' });
             }
         });
+        loadDropdowns();
     }
 
     const toggleMobileMenu = () => {
         navBar.style.display = navBar.style.display == "block" ? "" : "block";
+    }
+
+    const loadDropdowns = () => {
+        Array.from(document.querySelectorAll("dropdown")).forEach(e => {
+            const dropdown = document.createElement("div")
+            dropdown.setAttribute("active", "");
+            dropdown.className = "dropdown-banner";
+            const inactiveBanner = `<h4 class="dropdown-label"><i class="dropdown-icon fa-solid fa-angle-right"></i> <span class="dropdown-text">${e.getAttribute("text")}</span></h4>`; 
+            const activeBanner = `<h4 class="dropdown-label"><i class="dropdown-icon fa-solid fa-angle-down"></i> <span class="dropdown-text">${e.getAttribute("text")}</span></h4>`; 
+            dropdown.onclick = () => {
+                if (dropdown.getAttribute("active")) {
+                    dropdown.innerHTML = inactiveBanner
+                    div.className = "dropdown inactive"
+                    dropdown.setAttribute("active", "")
+                } else {
+                    dropdown.innerHTML = activeBanner
+                    div.className = "dropdown active"
+                    dropdown.setAttribute("active", true)
+                }
+            }
+            dropdown.innerHTML = inactiveBanner
+            const div = document.createElement("div")
+            e.parentNode.insertBefore(div, e)
+            div.appendChild(dropdown)
+            div.appendChild(e)
+            div.className = "dropdown inactive"
+            p = e.querySelector("p")
+            p.style.marginTop = "2px";
+        })
     }
 
     document.addEventListener("DOMContentLoaded", load);
