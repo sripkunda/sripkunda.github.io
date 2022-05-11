@@ -141,9 +141,9 @@ a:hover {
 dropdown {
   margin-left: 15px;
   display: inline-block;
-  padding: 5px;
   width: calc(100% - 10px);
-  display: block;
+  transform: scale(0.98);
+  transform: translateX(-4px);
 }
 
 dropdown a {
