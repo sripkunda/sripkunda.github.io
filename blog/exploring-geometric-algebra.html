@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eulers-constant</title>
+    <title>exploring-geometric-algebra</title>
     <link rel="shortcut icon" href="/assets/favicon.jpg" />
     <link rel="stylesheet" href="/css/md.css" />
     <link rel="stylesheet" href="/css/blog.css" />
@@ -49,7 +49,7 @@
         headings = content.querySelectorAll('h1, h2, h3');
         navBar = document.getElementsByTagName("nav")[0];
         const nav = document.getElementById("heading_tree");
-        document.title = headings[0].textContent || document.title;
+        document.title = (headings[0].textContent || document.title).trim() + " | Sri Pranav Kunda";
         headings.forEach((h, i) => { 
             const node = h.cloneNode(true);
             const a = node.getElementsByTagName("a")[0];
@@ -71,10 +71,40 @@
                 headings[i].scrollIntoView({ behavior: 'smooth' });
             }
         });
+        loadDropdowns();
     }
 
     const toggleMobileMenu = () => {
         navBar.style.display = navBar.style.display == "block" ? "" : "block";
+    }
+
+    const loadDropdowns = () => {
+        Array.from(document.querySelectorAll("dropdown")).forEach(e => {
+            const dropdown = document.createElement("div")
+            dropdown.setAttribute("active", "");
+            dropdown.className = "dropdown-banner";
+            const inactiveBanner = `<h4 class="dropdown-label"><i class="dropdown-icon fa-solid fa-angle-right"></i> <span class="dropdown-text">${e.getAttribute("text")}</span></h4>`; 
+            const activeBanner = `<h4 class="dropdown-label"><i class="dropdown-icon fa-solid fa-angle-down"></i> <span class="dropdown-text">${e.getAttribute("text")}</span></h4>`; 
+            dropdown.onclick = () => {
+                if (dropdown.getAttribute("active")) {
+                    dropdown.innerHTML = inactiveBanner
+                    div.className = "dropdown inactive"
+                    dropdown.setAttribute("active", "")
+                } else {
+                    dropdown.innerHTML = activeBanner
+                    div.className = "dropdown active"
+                    dropdown.setAttribute("active", true)
+                }
+            }
+            dropdown.innerHTML = inactiveBanner
+            const div = document.createElement("div")
+            e.parentNode.insertBefore(div, e)
+            div.appendChild(dropdown)
+            div.appendChild(e)
+            div.className = "dropdown inactive"
+            p = e.querySelector("p")
+            p.style.marginTop = "2px";
+        })
     }
 
     document.addEventListener("DOMContentLoaded", load);
@@ -93,7 +123,7 @@
     <h1 onclick="window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: 'auto' })">Jump To Bottom</h1>
     </nav>
     <div id="blog_content">
-        <h1>Euler's Constant</h1><newline><p>Euler's constant (<eq><span class='katex'><span class='katex-mathml'><math xmlns='http://www.w3.org/1998/Math/MathML'><semantics><mrow><mi>e</mi></mrow><annotation encoding='application/x-tex'>e</annotation></semantics></math></span><span class='katex-html' aria-hidden='true'><span class='base'><span class='strut' style='height:0.4306em;'></span><span class='mord mathnormal'>e</span></span></span></span></eq>) has always had an air of mystery to it as to where it came from. Euler most certainly did not &quot;summon&quot; this magical number from thin air, and the logic behind the origin of the number is quite fascinating. In this article, we discuss these origins and also try to build some intuition for the exponential function and the natural logarithm.</p><newline>
+        <h1>Exploring Geoemtric Algebra</h1><newline><p>I recently studied an introductory text in Geometric Algebra. The subject was pioneered by David Hestenes from the University of Arizona. To my fascination, it comes with lots of surprises that provide a different way to think about mathematical concepts, mainly in linear algebra! The subject is created with physics in mind, claiming to generalize concepts in differential forms with what is called geometric calculus. Knowledge of linear algebra is assumed.</p><newline><p>This post hopes to build some interest in exploring geometric algebra by developing its foundations and motivating two key achievements: a general interpretations of the complex numbers and a beautiful definition of the determinant of a linear map. We also give a way to compute the dual basis (an orthogonal basis for the dual space of a vector space).</p><newline><p>If you need a review of concepts in linear algebra or are unfamiliar with some terms, see <a href='linear-algebra-primer.html'>my post about linear algebra</a>. If you fully understand everything discussed in that post, there is no further prerequisite knowledge required to follow along here.</p><newline><h1>Algebra Preliminaries</h1><newline><p>Here we first discuss basic preliminaries from modern algebra such as groups, rings, and algebras. This will be important so that we can define something called the &quot;clifford algebra.&quot;</p><newline>
     </div>
 </body>
 </html>
