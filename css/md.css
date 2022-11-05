@@ -118,6 +118,7 @@ a:hover {
 }
 
 .dropdown {
+  transition: height 1s;
   background-color: #000;
   color: white;
 }
@@ -139,11 +140,10 @@ a:hover {
 }
 
 dropdown {
-  margin-left: 15px;
+  margin-left: 10px;
   display: inline-block;
   width: calc(100% - 10px);
-  transform: scale(0.98);
-  transform: translateX(-4px);
+  transform: scale(0.98) translateX(-4px);
 }
 
 dropdown a {

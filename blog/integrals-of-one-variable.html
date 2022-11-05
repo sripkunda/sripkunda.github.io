@@ -85,23 +85,35 @@
             dropdown.className = "dropdown-banner";
             const inactiveBanner = `<h4 class="dropdown-label"><i class="dropdown-icon fa-solid fa-angle-right"></i> <span class="dropdown-text">${e.getAttribute("text")}</span></h4>`; 
             const activeBanner = `<h4 class="dropdown-label"><i class="dropdown-icon fa-solid fa-angle-down"></i> <span class="dropdown-text">${e.getAttribute("text")}</span></h4>`; 
+
+            const activate = () => {
+                dropdown.innerHTML = activeBanner
+                div.className = "dropdown active"
+                dropdown.setAttribute("active", true)
+            }
+
+            const deactivate = () => {
+                dropdown.innerHTML = inactiveBanner
+                div.className = "dropdown inactive"
+                dropdown.setAttribute("active", "")
+            }
+
             dropdown.onclick = () => {
-                if (dropdown.getAttribute("active")) {
-                    dropdown.innerHTML = inactiveBanner
-                    div.className = "dropdown inactive"
-                    dropdown.setAttribute("active", "")
-                } else {
-                    dropdown.innerHTML = activeBanner
-                    div.className = "dropdown active"
-                    dropdown.setAttribute("active", true)
-                }
+                if (dropdown.getAttribute("active"))
+                    deactivate()
+                else
+                    activate()
             }
             dropdown.innerHTML = inactiveBanner
             const div = document.createElement("div")
             e.parentNode.insertBefore(div, e)
             div.appendChild(dropdown)
             div.appendChild(e)
-            div.className = "dropdown inactive"
+            const bInitActive = e.getAttribute("open") != null
+            if (bInitActive) 
+                activate() 
+            else 
+                deactivate()
             p = e.querySelector("p")
             p.style.marginTop = "2px";
         })
