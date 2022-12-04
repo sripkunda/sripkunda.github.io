@@ -144,6 +144,8 @@ dropdown {
   display: inline-block;
   width: calc(100% - 10px);
   transform: scale(0.98) translateX(-4px);
+  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
 
 dropdown a {

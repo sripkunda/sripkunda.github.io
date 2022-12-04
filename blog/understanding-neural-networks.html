@@ -72,6 +72,17 @@
             }
         });
         loadDropdowns();
+
+        const isNotMarked = el => {
+            while (el && el.parentNode && !el.parentNode.marked) {
+            el = el.parentNode;
+            if (el.marked) { return false }
+            }
+            return true;
+        }
+        [...document.querySelectorAll("p")]
+            .filter(el => el.textContent.trim() === "" && isNotMarked(el) ? el.marked = true : false)
+            .forEach(el => el.parentNode.removeChild(el));
     }
 
     const toggleMobileMenu = () => {
