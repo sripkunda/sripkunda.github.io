@@ -1,17 +1,21 @@
+:root {
+    --selected-section-border-color: var(--text-color);
+}
+
 .header-anchor {
-    color: #000;
+    color: var(--link-color);
     text-decoration: none;
 }
 
 .header-anchor:hover {
-    color: #000;
+    background-color: var(--link-color-unvisited);
+    color: var(--link-color-hover);
     opacity: 1;
     text-decoration: none;
-    background-color: white;
 }
 
 .header-anchor:visited {
-    color: #000;
+    color: var(--link-color-visited);
 }
 
 nav {
@@ -26,7 +30,7 @@ nav {
 
 nav .selected {
     opacity: 1; 
-    border-left: #37352F 3px solid;
+    border-left: var(--selected-section-border-color) 3px solid;
 }
 
 nav .open {
@@ -71,15 +75,15 @@ nav h1, nav h2, nav h3 {
 
 nav h1:hover, nav h2:hover, nav h3:hover {
     cursor: pointer;
-    border-left: #37352F 3px solid;
+    border-left: var(--selected-section-border-color) 3px solid;
 }
 
 #mobile_menu_button {
     transform: scale(0.9);
     display: none; 
     padding: 10px; 
-    background-color: #37352F;
-    color: white;
+    background-color: var(--selected-section-border-color);
+    color: var(--bg-color);
     position: fixed; 
     z-index: 2; 
     bottom: 20px;
@@ -122,7 +126,7 @@ img {
         max-height: 240px;
         overflow-y: auto;
         position: absolute fixed;
-        background-color: white;
+        background-color: var(--bg-color);
         box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
         border-radius: 5px;
     }

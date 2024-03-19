@@ -1,5 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
+:root {
+  --bg-color: #000;
+  --text-color: #fff;
+  --link-color-unvisited: var(--text-color);
+  --link-color-visited: var(--text-color);
+  --link-color-hover: var(--bg-color);
+
+  --showcase-item-bg-color: var(--bg-color);
+  --showcase-item-bg-color-hover: #141414;
+  --showcase-item-border-color: var(--showcase-item-bg-color-hover);
+  --showcase-item-border-color-hover: var(--bg-color);
+  --showcase-item-text-color: var(--text-color);
+  --showcase-item-text-color-hover: var(--text-color);
+
+  --code-background-color: #1a1a1a;
+}
+
 pre {
     overflow:auto;
 }
@@ -18,8 +35,8 @@ p {
 }
 
 ::selection {
-  background-color: #000000;
-  color: white;
+  background-color: var(--text-color);
+  color: var(--bg-color);
 }
 
 html {
@@ -29,8 +46,8 @@ html {
 body {
   overflow-x: hidden;
   font-family: "Inter", sans-serif;
-  color: #000;
-  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--text-color);
+  background-color: var(--bg-color);
   padding-bottom: 5vh;
   padding-top: 5vh;
   margin: auto;
@@ -65,7 +82,7 @@ h4 {
 }
 
 blockquote {
-  border-left: #000000 3px solid;
+  border-left: var(--text-color) 3px solid;
   padding-left: 14px;
   margin-right: 3em;
   margin-left: 0;
@@ -75,19 +92,23 @@ blockquote {
 }
 
 code {
-  background-color: rgb(241, 237, 237);
+  background-color: var(--code-background-color);
 }
 
 a {
   opacity: 1;
   text-underline-offset: 3px;
   text-decoration: underline;
-  color: #000;
+  color: var(--link-color-unvisited);
+}
+
+a:visited {
+  color: var(--link-color-visited);
 }
 
 a:hover {
-  background-color: black;
-  color: white;
+  background-color: var(--link-color-unvisited);
+  color: var(--link-color-hover);
 }
 
 @media (max-width: 1200px) {
@@ -119,8 +140,8 @@ a:hover {
 
 .dropdown {
   transition: height 1s;
-  background-color: #000;
-  color: white;
+  background-color: var(--text-color);
+  color: var(--bg-color);
 }
 
 .dropdown-banner:hover {
@@ -135,8 +156,8 @@ a:hover {
 }
 
 .dropdown *::selection{
-  background-color: white;
-  color: black;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 dropdown {
@@ -149,12 +170,12 @@ dropdown {
 }
 
 dropdown a {
-  color: white;
+  color: var(--link-color-hover);
 }
 
 dropdown a:hover {
-  background-color: white;
-  color: black;
+  background-color: var(--link-color-hover);
+  color: var(--link-color-unvisited);
 }
 
 .dropdown-icon {
