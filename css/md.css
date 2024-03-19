@@ -9,7 +9,7 @@
 
   --showcase-item-bg-color: var(--bg-color);
   --showcase-item-bg-color-hover: #141414;
-  --showcase-item-border-color: var(--showcase-item-bg-color-hover);
+  --showcase-item-border-color: #303030;
   --showcase-item-border-color-hover: var(--bg-color);
   --showcase-item-text-color: var(--text-color);
   --showcase-item-text-color-hover: var(--text-color);
