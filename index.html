@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/favicon.jpg" />
+    <link rel="stylesheet" href="/css/md.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <!-- Math and Code -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"></script>
+    <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+              delimiters: [
+                  {left: '$$', right: '$$', display: true},
+                  {left: '$', right: '$', display: false},
+                  {left: '\\(', right: '\\)', display: false},
+                  {left: '\\[', right: '\\]', display: true}
+              ],
+              throwOnError : false
+            });
+        });
+    </script>
+    <title>Sri Pranav Kunda</title>
+</head>
+<body>
+    <header>
+        <h1>Sri Pranav Kunda</h1>
+        <section>
+            <blockquote>I'm Sri Pranav, a first-year mathematics student at UC Davis. I enjoy studying the applications of mathematics in computer science. If you're an employer, here's my <a href="./blog/resume.pdf">resume</a>.</blockquote>
+            <div>
+                        <a href="https:&#x2F;&#x2F;github.com&#x2F;sripkunda" target="">GitHub</a> |
+                        <a href="https:&#x2F;&#x2F;linkedin.com&#x2F;in&#x2F;sripkunda" target="">LinkedIn</a> |
+                        <a href="mailto:sripkunda@gmail.com" target="">Email</a>
+            </div>
+        </section>
+    </header>
+        <section>
+            <h2>Writing</h2>
+            <p>Here are some posts that I’ve written for fun or to strengthen my knowledge. Check them out, hopefully they are useful to you.</p>
+            
+            <div class="container">
+                    <div class="showcase" onclick="window.open('.&#x2F;intro-to-stone-duality&#x2F;Stone_Duality_Proofs.pdf', '_self');">
+                        <h3>Intro Stone Duality Notes</h3>
+                        <p>Some proofs for the theorems in Prof. Alexander Kurz's notes introducing Stone Duality.</p>
+                    </div>
+                    <div class="showcase" onclick="window.open('.&#x2F;blog&#x2F;understanding-neural-networks', '_self');">
+                        <h3>Understanding Neural Networks</h3>
+                        <p>A comprehensive article about neural networks and how they work (mathematically), complete with an implementation of neural nets in Python.</p>
+                    </div>
+                    <div class="showcase" onclick="window.open('.&#x2F;blog&#x2F;why-taylor-series-work', '_self');">
+                        <h3>Why Taylor Series Work</h3>
+                        <p>A description of how Taylor series so accurately approximate functions. A proof of Taylor's theorem is presented through a set of guiding exercises.</p>
+                    </div>
+                    <div class="showcase" onclick="window.open('.&#x2F;blog&#x2F;cauchy-mvt', '_self');">
+                        <h3>Cauchy's Mean Value Theorem</h3>
+                        <p>The proof of Cauchy's mean value theorem presented through a set of guiding exercises. The post is written with calculus students in mind.</p>
+                    </div>
+                    <div class="showcase" onclick="window.open('.&#x2F;blog&#x2F;The_Irrationality_of_Pi.pdf', '_self');">
+                        <h3>The Irrationality of Pi</h3>
+                        <p>A presentation of the proof that $\pi$ is irrational using techniques familiar to calculus students, with a formal introduction to rational/irrational numbers.</p>
+                    </div>
+                    <div class="showcase" onclick="window.open('.&#x2F;blog&#x2F;dapps-and-blockchain', '_self');">
+                        <h3>Decentralized Apps & Blockchain</h3>
+                        <p>An introduction to decentralized applications (dApps) and blockchain technology, with emphasis on the technical details of dApp platforms.</p>
+                    </div>
+            </div>
+        </section>
+        <hr>
+        <section>
+            <h2>My Projects</h2>
+            <p>Here are some projects I've worked on. Most of them are open sourced and can be found on my github.</p>
+            
+            <div class="container">
+                    <div class="showcase" onclick="window.open('https:&#x2F;&#x2F;github.com&#x2F;sripkunda&#x2F;candl', '_blank');">
+                        <h3>Candl</h3>
+                        <p>A tiny, pedagogical neural network library with a pytorch-like API and tensor-valued autodiff.</p>
+                    </div>
+                    <div class="showcase" onclick="window.open('https:&#x2F;&#x2F;accent.js.org', '_blank');">
+                        <h3>Accent.js</h3>
+                        <p>An open source JavaScript framework made in less than 10kb. Supports SPAs and state-based rendering.</p>
+                    </div>
+                    <div class="showcase" onclick="window.open('https:&#x2F;&#x2F;sripkunda.github.io&#x2F;craytracer', '_blank');">
+                        <h3>Craytracer</h3>
+                        <p>A ray tracing engine built from scratch in the Code.org JS environment, in part to demonstrate the versatility of the platform.</p>
+                    </div>
+                    <div class="showcase" onclick="window.open('https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v&#x3D;ZOeJA-rnsvs', '_blank');">
+                        <h3>Proximity Eyes</h3>
+                        <p>A prototype for a system that tracks relative positions of vehicles and pedestrians on the road using exclusively smartphone-available technology.</p>
+                    </div>
+                    <div class="showcase" onclick="window.open('https:&#x2F;&#x2F;feedbump.app', '_blank');">
+                        <h3>Feedbump</h3>
+                        <p>A tool for businesses to give and receive feedback from their customers, used by ~100 businesses to collect and manage their customer feedback.</p>
+                    </div>
+            </div>
+        </section>
+</body>
+</html>
